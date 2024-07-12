@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Task App</title>
+    <link rel="stylesheet" href="./styles/style.css">
+    <script type="module" src="./js/main.js" defer></script>
+</head>
+
+<body>
+    <main class="task-manager">
+        <div class="task-manager__main">
+            <h1 class="task-manager__title">Task Manager</h1>
+            <form class="task-manager__form">
+                <div>
+                    <input class="task-manager__input" type="text" name="task-name" placeholder="e.g. wash dishes">
+                    <button class="submit-btn">Submit</button>
+                </div>
+                <p class="feedback"></p>
+            </form>
+        </div>
+
+        <ul class="task-manager__task-list">
+            <p class="loading-text">Loading...</p>
+        </ul>
+    </main>
+
+    <dialog class="edit-modal" id="edit-modal">
+        <h2 class="edit-modal__title">Edit Task</h2>
+        <form class="edit-modal__form" action="" method="dialog">
+            <div>
+                <label for="task-id">Task ID</label>
+                <p id="task-id"></p>
+            </div>
+            <div>
+                <label for="task-name">Task Name</label>
+                <input type="text" id="task-name" class="task-name" value="some random name">
+            </div>
+            <div>
+                <label for="task-status">Completed</label>
+                <input type="checkbox" id="task-status" class="task-status">
+            </div>
+            <button class="save-btn" type="submit">Save</button>
+        </form>
+    </dialog>
+</body>
+
+</html>

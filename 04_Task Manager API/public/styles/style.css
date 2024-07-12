@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --main-bg: hsl(220, 20%, 94%);
+  --main-text: hsl(228, 10%, 10%);
+
+  --clr-primary-400: hsl(277, 88%, 28%);
+  --clr-nuetral-100: hsl(0, 0%, 100%);
+
+  --ff-primary: "Fira Sans", sans-serif;
+}
+
+/* CSS Reset */
+
+/* makes sure padding and borders are calculated in the size of an element */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* remove default spacing and force children to inherit the font of their parents by default */
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* adds hanging punctuation when its the first or last character in text, currently not supported in Chrome as of 2024 */
+
+html {
+  hanging-punctuation: first last;
+}
+
+/* body should take at least the full height of the viewport */
+
+body {
+  min-height: 100svh; /* svh assumes theres a address bar open on mobile and prevents layout shift when it disappears */
+}
+
+/* responsive images/videos */
+
+img,
+video,
+svg,
+picture {
+  display: block; /* images/videos should be on their own line */
+  max-width: 100%; /* width of images and videos should be at most be 100% of their container */
+}
+
+/* Make long headings display evenly across multiple lines by default */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+/* Gets rid of text orphans and limits text line length by default */
+
+p {
+  max-inline-size: 75ch; /* similar to max-width except its a logical property, so it can adjust to different writing mode directions */
+  text-wrap: pretty;
+}
+
+/* eliminates scroll snap behavior when the user prefers reduced motion and adds some space above the section being scrolled to  */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 3rem; /* personal peference on how much space (usually 3-5 rem) */
+  }
+}
+
+/* Utility Classes */
+
+.flex-group {
+  display: flex;
+  align-items: center;
+  gap: var(--gap, 1rem);
+}
+
+.feedback {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+[data-message="success"] {
+  color: hsla(120, 39.32%, 54.12%, 1);
+}
+[data-message="error"] {
+  color: hsla(357, 62%, 56%, 1);
+}
+
+.feedback:empty {
+  display: none;
+}
+
+/* General Styles */
+
+body {
+  background-color: var(--main-bg);
+  color: var(--main-text);
+  font-family: var(--ff-primary);
+  min-height: 100vh;
+  display: grid;
+  place-content: center;
+}
+
+.edit-modal {
+  margin: revert; /* so the modal doesn't get stuck to the top left of the screen */
+  padding: 1.5em;
+  max-width: 50ch;
+  border: 0;
+  box-shadow: 0 0 1em rgb(0 0 0 / 0.3);
+  border-radius: 0.5em;
+
+  & .edit-modal__title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+  }
+
+  & .edit-modal__form {
+    display: grid;
+    gap: 2rem;
+
+    & > * {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    & .save-btn {
+      background-color: var(--clr-primary-400);
+      color: var(--clr-nuetral-100);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      padding-block: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+.edit-modal:not([open]) {
+  display: none;
+}
+
+.btn {
+  width: 1rem;
+  aspect-ratio: 1;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+.edit-btn {
+  stroke: green;
+}
+.delete-btn {
+  stroke: red;
+}
+
+/* Task Manager Styles */
+
+.task-manager {
+  --br: 5px;
+  --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.095);
+
+  display: grid;
+  gap: 5rem;
+
+  & .task-manager__main {
+    background-color: var(--clr-nuetral-100);
+    padding: 3.5rem 5rem;
+    display: grid;
+    gap: 2rem;
+    border-radius: var(--br);
+    box-shadow: var(--box-shadow);
+
+    & .task-manager__title {
+      text-align: center;
+      font-size: 1.5rem;
+    }
+
+    & .task-manager__form div {
+      --padding: 0.5rem 0.75rem;
+      display: flex;
+      align-items: center;
+
+      & .task-manager__input {
+        width: 100%;
+        padding: var(--padding);
+        border-top-left-radius: var(--br);
+        border-bottom-left-radius: var(--br);
+        border: none;
+        background-color: hsl(220, 20%, 95%);
+        padding-right: 2rem;
+        outline: none;
+      }
+
+      & .submit-btn {
+        background-color: var(--clr-primary-400);
+        color: var(--clr-nuetral-100);
+        padding: var(--padding);
+        border: none;
+        border-top-right-radius: var(--br);
+        border-bottom-right-radius: var(--br);
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: filter 0.2s;
+
+        &:hover {
+          filter: brightness(0.9);
+        }
+      }
+    }
+  }
+
+  & .task-manager__task-list {
+    display: grid;
+    gap: 2rem;
+
+    & .task-manager__task-list-task {
+      background-color: var(--clr-nuetral-100);
+      border-radius: var(--br);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      box-shadow: var(--box-shadow);
+
+      & .task__name {
+        border: none;
+        outline: none;
+      }
+    }
+  }
+}
